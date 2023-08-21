@@ -1,12 +1,14 @@
+let firstNum = 0;
+let secondNum = 0;
+let operator = "";
+
 function add(a, b) {
     return a + b;
 }
-console.log(add(1, 2));
 
 function subtract(a, b) {
     return a - b;
 }
-console.log(subtract(1, 2));
 
 function multiply(...numbers) {
     let product = 1;
@@ -15,13 +17,21 @@ function multiply(...numbers) {
     }
     return product;
 }
-console.log(multiply(2, 3, 4, 5));
 
 function divide(...numbers) {
     let quotient = numbers[0];
     for (let i = 1; i < numbers.length; i++) {
-        quotient /= numbers[i]
+        quotient /= numbers[i];
     }
     return quotient;
 }
-console.log(divide(10, 2));
+
+function operate(operator, firstNum, secondNum) {
+    if (operator === "+") return add(firstNum, secondNum);
+    if (operator === "-") return add(firstNum, secondNum);
+    if (operator === "*") return add(firstNum, secondNum);
+    if (operator === "/") return add(firstNum, secondNum);
+    else return "error";
+}
+
+console.log(operate("+", 1, 2))
