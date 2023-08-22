@@ -10,7 +10,7 @@ let firstNum = 0;
 let secondNum = 0;
 let operator = "";
 let enteredDigits = [];
-let displayedNumber = display.value;
+let displayedNumber = 0;
 
 // Functions
 
@@ -22,23 +22,16 @@ function subtract(a, b) {
     return a - b;
 }
 
-function multiply(...numbers) {
-    let product = 1;
-    for (let i = 0; i < numbers.length; i++) {
-        product *= numbers[i];
-    }
-    return product;
+function multiply(a, b) {
+    return a * b;
 }
 
-function divide(...numbers) {
-    let quotient = numbers[0];
-    for (let i = 1; i < numbers.length; i++) {
-        if (numbers[i] === 0) {
-            return "ERROR";
-        }
-        quotient /= numbers[i];
+function divide(a, b) {
+    if (b === 0) {
+        display.value = "ERROR";
+        return;
     }
-    return quotient;
+    return a / b;
 }
 
 function operate(operator, firstNum, secondNum) {
@@ -46,7 +39,7 @@ function operate(operator, firstNum, secondNum) {
     if (operator === "-") return subtract(firstNum, secondNum);
     if (operator === "X") return multiply(firstNum, secondNum);
     if (operator === "/") return divide(firstNum, secondNum);
-    else return "error";
+    throw new Error("Invalid operator");
 }
 
 function clearData() {
@@ -64,19 +57,23 @@ numbers.forEach((number) => {
         if (number.textContent === "." && enteredDigits.includes(".")) {
             return;
         }
+        if (number.textContent === "." && enteredDigits.length === 0) {
+            enteredDigits.push("0.");
+            displayedNumber = parseFloat((display.value = enteredDigits.join("")));
+            return;
+        }
         enteredDigits.push(number.textContent);
-        display.value = enteredDigits.join("");
-        displayedNumber = display.value;
+        displayedNumber = parseFloat((display.value = enteredDigits.join("")));
     });
 });
 
 operators.forEach((operation) => {
     operation.addEventListener("click", () => {
         if (operator && enteredDigits.length > 0) {
-            firstNum = operate(operator, parseFloat(firstNum), parseFloat(displayedNumber));
-            display.value = firstNum;
+            firstNum = operate(operator, firstNum, displayedNumber);
+            display.value = Number(firstNum.toFixed(4));
         } else {
-            firstNum = parseFloat(displayedNumber);
+            firstNum = displayedNumber;
         }
         operator = operation.textContent;
         enteredDigits = [];
@@ -84,12 +81,15 @@ operators.forEach((operation) => {
 });
 
 equal.addEventListener("click", () => {
-    secondNum = parseFloat(displayedNumber);
-    let result = operate(operator, parseFloat(firstNum), secondNum);
-    if (result === "ERROR") {
-        display.value = "ERROR";
-    } else {
-        display.value = Number(result.toFixed(4));
+    secondNum = displayedNumber;
+    console.log(operator, firstNum, secondNum);
+    try {
+        let result = operate(operator, firstNum, secondNum);
+        if (display.value !== "ERROR") {
+            display.value = Number(result.toFixed(4));
+        }
+    } catch (error) {
+        console.error(error);
     }
 });
 
@@ -99,10 +99,6 @@ clear.addEventListener("click", () => {
 
 backspace.addEventListener("click", () => {
     enteredDigits.pop();
-    if (enteredDigits.includes(".")) {
-        display.value = enteredDigits.join("");
-    } else {
-        display.value = parseFloat(enteredDigits.join(""));
-    }
-    displayedNumber = display.value;
+    displayedNumber = parseFloat(enteredDigits.join("")) || 0; // Update displayedNumber as a number
+    display.value = isNaN(displayedNumber) ? 0 : displayedNumber; // Update the display with the new value
 });
