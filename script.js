@@ -5,6 +5,7 @@ const numbers = document.querySelectorAll(".numbers");
 const operators = document.querySelectorAll(".operators");
 const equal = document.querySelector(".equal");
 const clear = document.querySelector(".clear");
+const backspace = document.querySelector(".backspace");
 let firstNum = 0;
 let secondNum = 0;
 let operator = "";
@@ -92,4 +93,11 @@ equal.addEventListener("click", () => {
 
 clear.addEventListener("click", () => {
     clearData();
+});
+
+backspace.addEventListener("click", () => {
+    enteredDigits.pop();
+    console.log("backspace:", backspace);
+    console.log("enteredDigits:", enteredDigits);
+    displayedNumber = parseInt((display.value = enteredDigits.join("")));
 });
