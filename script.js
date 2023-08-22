@@ -1,15 +1,17 @@
-let firstNum = 0;
-let secondNum = 0;
-let operator = "";
+// Variables
 
 const display = document.querySelector(".display");
 const numbers = document.querySelectorAll(".numbers");
 const operators = document.querySelectorAll(".operators");
 const equal = document.querySelector(".equal");
 const clear = document.querySelector(".clear");
-
+let firstNum = 0;
+let secondNum = 0;
+let operator = "";
 let enteredDigits = [];
 let displayedNumber = display.value;
+
+// Functions
 
 function add(a, b) {
     return a + b;
@@ -43,6 +45,16 @@ function operate(operator, firstNum, secondNum) {
     else return "error";
 }
 
+function clearData() {
+    firstNum = 0;
+    secondNum = 0;
+    operator = "";
+    enteredDigits = [];
+    display.value = 0;
+}
+
+//Event Listeners
+
 numbers.forEach((number) => {
     number.addEventListener("click", () => {
         enteredDigits.push(number.textContent);
@@ -52,7 +64,16 @@ numbers.forEach((number) => {
 
 operators.forEach((operation) => {
     operation.addEventListener("click", () => {
-        firstNum = displayedNumber;
+        if (operator && enteredDigits.length > 0) {
+            firstNum = operate(operator, firstNum, displayedNumber);
+            display.value = firstNum;
+        }
+        // else if (operator && enteredDigits.length === 0) {
+
+        // }
+        else {
+            firstNum = displayedNumber;
+        }
         operator = operation.textContent;
         enteredDigits = [];
     });
@@ -61,13 +82,14 @@ operators.forEach((operation) => {
 equal.addEventListener("click", () => {
     secondNum = displayedNumber;
     console.log(operator, firstNum, secondNum);
-    display.value = operate(operator, firstNum, secondNum);
+    let result = operate(operator, firstNum, secondNum);
+    if (display.value === "Infinity") {
+        display.value = "ERROR";
+    } else {
+        display.value = Number(result.toFixed(4));
+    }
 });
 
 clear.addEventListener("click", () => {
-    firstNum = 0;
-    secondNum = 0;
-    operator = "";
-    enteredDigits = [];
-    display.value = 0;
+    clearData();
 });
