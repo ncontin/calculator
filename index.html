@@ -11,32 +11,47 @@
         <script src="https://kit.fontawesome.com/63cb09d373.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <div class="container h-screen flex justify-center items-center">
-            <div class="calculator bg-yellow-300 p-5 rounded-xl">
-                <div class="grid grid-cols-4 w-72 h-96 self-auto gap-2">
-                    <div class="flex items-center justify-center col-span-4 bg-violet-300 text rounded-xl">
-                        <input class="display h-4/5 text-rigth bg-emerald-300 rounded-xl" value="0" disabled />
+        <div class="flex-col justify-center items-center">
+            <div class="container h-screen flex justify-center items-center">
+                <div>
+                    <h1 class="text-center pb-5 text-2xl">Project: Calculator</h1>
+                    <div class="calculator bg-yellow-300 p-5 rounded-xl">
+                        <div class="grid grid-cols-4 w-72 h-96 self-auto gap-2">
+                            <div class="flex items-center justify-center col-span-4 px-2 bg-violet-300 rounded-xl">
+                                <input
+                                    class="display h-4/5 w-full text-right bg-emerald-300 rounded-xl p-2"
+                                    value="0"
+                                    disabled
+                                />
+                            </div>
+                            <button class="backspace col-span-2 bg-orange-300 rounded-xl">
+                                <i class="fa-solid fa-left-long"></i>
+                            </button>
+                            <button class="rounded-xl clear col-span-2 bg-orange-300 ">CE</button>
+                            <button class="rounded-xl numbers bg-violet-200">7</button>
+                            <button class="rounded-xl numbers bg-violet-200">8</button>
+                            <button class="rounded-xl numbers bg-violet-200">9</button>
+                            <button class="rounded-xl operators bg-teal-100">/</button>
+                            <button class="rounded-xl numbers bg-violet-200">4</button>
+                            <button class="rounded-xl numbers bg-violet-200">5</button>
+                            <button class="rounded-xl numbers bg-violet-200">6</button>
+                            <button class="rounded-xl operators bg-teal-100">X</button>
+                            <button class="rounded-xl numbers bg-violet-200">1</button>
+                            <button class="rounded-xl numbers bg-violet-200">2</button>
+                            <button class="rounded-xl numbers bg-violet-200">3</button>
+                            <button class="rounded-xl operators bg-teal-100">-</button>
+                            <button class="rounded-xl numbers bg-violet-200">0</button>
+                            <button class="rounded-xl numbers bg-violet-200">.</button>
+                            <button class="rounded-xl equal bg-cyan-500">=</button>
+                            <button class="rounded-xl operators bg-teal-100">+</button>
+                        </div>
                     </div>
-                    <button class="backspace col-span-2 bg-orange-300 rounded-xl">
-                        <i class="fa-solid fa-left-long"></i>
-                    </button>
-                    <button class="rounded-xl clear col-span-2 bg-orange-300">CE</button>
-                    <button class="rounded-xl numbers bg-violet-200">7</button>
-                    <button class="rounded-xl numbers bg-violet-200">8</button>
-                    <button class="rounded-xl numbers bg-violet-200">9</button>
-                    <button class="rounded-xl operators bg-teal-100">/</button>
-                    <button class="rounded-xl numbers bg-violet-200">4</button>
-                    <button class="rounded-xl numbers bg-violet-200">5</button>
-                    <button class="rounded-xl numbers bg-violet-200">6</button>
-                    <button class="rounded-xl operators bg-teal-100">X</button>
-                    <button class="rounded-xl numbers bg-violet-200">1</button>
-                    <button class="rounded-xl numbers bg-violet-200">2</button>
-                    <button class="rounded-xl numbers bg-violet-200">3</button>
-                    <button class="rounded-xl operators bg-teal-100">-</button>
-                    <button class="rounded-xl numbers bg-violet-200">0</button>
-                    <button class="rounded-xl numbers bg-violet-200">.</button>
-                    <button class="rounded-xl equal bg-cyan-500">=</button>
-                    <button class="rounded-xl operators bg-teal-100">+</button>
+                </div>
+                <div class="absolute left-1/2 bottom-0 transform -translate-x-1/2 text-xs">
+                    Copyright ©2023 ncontin
+                    <span
+                        ><a href="https://github.com/ncontin" target="_blank"> <i class="fab fa-github"></i></a
+                    ></span>
                 </div>
             </div>
         </div>

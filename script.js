@@ -33,6 +33,9 @@ function multiply(...numbers) {
 function divide(...numbers) {
     let quotient = numbers[0];
     for (let i = 1; i < numbers.length; i++) {
+        if (numbers[i] === 0) {
+            return "ERROR";
+        }
         quotient /= numbers[i];
     }
     return quotient;
@@ -58,22 +61,22 @@ function clearData() {
 
 numbers.forEach((number) => {
     number.addEventListener("click", () => {
+        if (number.textContent === "." && enteredDigits.includes(".")) {
+            return;
+        }
         enteredDigits.push(number.textContent);
-        displayedNumber = parseInt((display.value = enteredDigits.join("")));
+        display.value = enteredDigits.join("");
+        displayedNumber = display.value;
     });
 });
 
 operators.forEach((operation) => {
     operation.addEventListener("click", () => {
         if (operator && enteredDigits.length > 0) {
-            firstNum = operate(operator, firstNum, displayedNumber);
+            firstNum = operate(operator, parseFloat(firstNum), parseFloat(displayedNumber));
             display.value = firstNum;
-        }
-        // else if (operator && enteredDigits.length === 0) {
-
-        // }
-        else {
-            firstNum = displayedNumber;
+        } else {
+            firstNum = parseFloat(displayedNumber);
         }
         operator = operation.textContent;
         enteredDigits = [];
@@ -81,10 +84,9 @@ operators.forEach((operation) => {
 });
 
 equal.addEventListener("click", () => {
-    secondNum = displayedNumber;
-    console.log(operator, firstNum, secondNum);
-    let result = operate(operator, firstNum, secondNum);
-    if (display.value === "Infinity") {
+    secondNum = parseFloat(displayedNumber);
+    let result = operate(operator, parseFloat(firstNum), secondNum);
+    if (result === "ERROR") {
         display.value = "ERROR";
     } else {
         display.value = Number(result.toFixed(4));
@@ -97,7 +99,10 @@ clear.addEventListener("click", () => {
 
 backspace.addEventListener("click", () => {
     enteredDigits.pop();
-    console.log("backspace:", backspace);
-    console.log("enteredDigits:", enteredDigits);
-    displayedNumber = parseInt((display.value = enteredDigits.join("")));
+    if (enteredDigits.includes(".")) {
+        display.value = enteredDigits.join("");
+    } else {
+        display.value = parseFloat(enteredDigits.join(""));
+    }
+    displayedNumber = display.value;
 });
