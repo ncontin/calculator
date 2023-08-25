@@ -54,7 +54,7 @@ function clearData() {
 
 numbers.forEach((number) => {
     number.addEventListener("click", () => {
-        if (number.textContent === "." && enteredDigits.includes(".")) {
+        if (number.textContent === "." && enteredDigits.includes("0.")) {
             return;
         }
         if (number.textContent === "." && enteredDigits.length === 0) {
